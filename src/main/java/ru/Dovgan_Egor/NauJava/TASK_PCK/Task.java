@@ -42,8 +42,8 @@ public class Task {
     public String toString() {
         return
                 "Номер задачи = " + id + ',' + ' ' +
-                " Наименование =" + name + ',' + ' ' +
-                " Описание =" + description + ',' + ' ' +
-                " Статус =" + status + '\n';
+                " Наименование = " + name + ',' + ' ' +
+                " Описание = " + description + ',' + ' ' +
+                " Статус = " + status + '\n';
     }
 }
