@@ -1,6 +1,6 @@
 package ru.Dovgan_Egor.NauJava.SERVICE_PCK;
 
-import ru.Dovgan_Egor.NauJava.TASK_PCK.Task;
+import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
 
 public interface TaskService {
     void createTask(Long id, String name, String description, Boolean status);
@@ -11,3 +11,5 @@ public interface TaskService {
 
     void updateStatus(Long id, Boolean newStatus);
 }
+
+
