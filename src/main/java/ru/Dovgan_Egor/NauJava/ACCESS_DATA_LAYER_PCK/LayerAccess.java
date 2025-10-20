@@ -2,7 +2,7 @@ package ru.Dovgan_Egor.NauJava.ACCESS_DATA_LAYER_PCK;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.Dovgan_Egor.NauJava.TASK_PCK.Task;
+import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
 
 import java.util.List;
 
