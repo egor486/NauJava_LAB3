@@ -1,8 +1,10 @@
 package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,9 +18,12 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"tasks"}) // Игнорируем обратную связь
     private User user_id;
 
+
     @ManyToOne
+    @JsonIgnoreProperties({"tasks"}) // Игнорируем обратную связь
     private TaskStatus status_id;
 
     @Column
@@ -27,11 +32,13 @@ public class Task {
     @Column
     private String description;
 
-    @Column
+    @Column(name = "dt_beg")
     private Date dt_beg;
+    //private LocalDate dtBeg;
 
-    @Column
+    @Column(name = "dt_end")
     private Date dt_end;
+    //private LocalDate dtEnd;
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,7 @@ public class SubTask {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
+    @JsonIgnoreProperties({"subTasks", "user_id", "status_id"})
     private Task task;
 
     public Long getId() {
