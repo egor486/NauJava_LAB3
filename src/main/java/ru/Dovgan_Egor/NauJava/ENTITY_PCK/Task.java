@@ -18,12 +18,11 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"tasks"}) // Игнорируем обратную связь
-    private User user_id;
+
+    private User userId;
 
 
     @ManyToOne
-    @JsonIgnoreProperties({"tasks"}) // Игнорируем обратную связь
     private TaskStatus status_id;
 
     @Column
@@ -49,11 +48,11 @@ public class Task {
     }
 
     public User getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(User user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public TaskStatus getStatus_id() {

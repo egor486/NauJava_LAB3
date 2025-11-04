@@ -13,6 +13,6 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> findByDtBegBetween(Date start, Date end);
 
-    @Query("SELECT t FROM Task t WHERE t.user_id.login = :login")
+    @Query("SELECT t FROM Task t WHERE t.userId.login = :login")
     List<Task> findTasksByUserLogin(@Param("login") String login);
 }
