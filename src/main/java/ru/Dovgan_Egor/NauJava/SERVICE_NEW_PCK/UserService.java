@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
 import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.EXCEPTION_PCK.UserNotFoundException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -14,11 +15,16 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User addUser (User user){
         user.setCreated_at(Timestamp.from(Instant.now()));
@@ -31,7 +37,10 @@ public class UserService {
     }
 
     public Optional<User> getUserById(Long id){
-        return userRepository.findById(id);
+        return userRepository.findById(id)
+                .or(() -> {
+                    throw new UserNotFoundException("User not found: " + id);
+                });
     }
 
     public Iterable<User> getAllUsers(){

@@ -1,6 +1,7 @@
 package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.sql.Timestamp;
 
@@ -18,7 +19,8 @@ public class User {
     @Column
     private String role;
 
-    @Column
+    @Column(nullable = false)
+    @NotBlank(message = "Login is mandatory")
     private String login;
 
     @Column

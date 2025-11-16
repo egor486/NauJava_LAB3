@@ -1,5 +1,6 @@
 package ru.Dovgan_Egor.NauJava.CONTROLLER_PCK;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
@@ -16,7 +17,7 @@ public class UserController {
 
 
     @PostMapping("/add")
-    public User addUser(@RequestBody User user) {
+    public User addUser(@Valid @RequestBody User user) {
         return userService.addUser(user);
     }
 

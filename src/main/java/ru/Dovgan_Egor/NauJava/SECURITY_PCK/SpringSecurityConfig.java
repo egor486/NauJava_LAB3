@@ -2,6 +2,7 @@ package ru.Dovgan_Egor.NauJava.SECURITY_PCK;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableAsync
 @Configuration
 @EnableWebSecurity
+@Profile("!test")
 public class SpringSecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(){
@@ -54,7 +56,12 @@ public class SpringSecurityConfig {
                         .permitAll()
                 )
                 //.formLogin(form -> form.permitAll())
-                .logout(logout -> logout.permitAll());
+                //.logout(logout -> logout.permitAll());
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .permitAll()
+                );
 
         return http.build();
     }

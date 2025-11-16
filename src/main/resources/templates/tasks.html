@@ -23,6 +23,13 @@
     </style>
 </head>
 <body>
+
+<div style="text-align: right; margin: 10px;">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" id="logout">Выйти</button>
+    </form>
+</div>
+
 <h1>Список задач</h1>
 <table>
     <thead>
