@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать задачу</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1 style="text-align: center;">Редактирование задачи</h1>
+
+<form th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post"
+      style="width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;">
+
+    <label>Название:
+        <input type="text" th:field="*{name}" required/>
+    </label>
+
+    <label>Описание:
+        <textarea th:field="*{description}" required></textarea>
+    </label>
+
+    <label>Дата начала:
+        <input type="date" th:field="*{dt_beg}" required/>
+    </label>
+
+    <label>Дата окончания:
+        <input type="date" th:field="*{dt_end}" required/>
+    </label>
+
+    <label>Статус:
+        <select th:field="*{status_id}" required>
+            <option th:each="status : ${allStatuses}"
+                    th:value="${status.id}"
+                    th:text="${status.name}"
+                    th:selected="${status.id == task.status_id.id}">
+            </option>
+        </select>
+    </label>
+
+    <button type="submit" class="btn-new">Сохранить изменения</button>
+</form>
+
+<form th:action="@{'/tasks/delete/' + ${task.id}}" method="post" style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;  ">
+    <button type="submit" class="btn-new">Удалить</button>
+</form>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/tasks-page">Назад к задачам</a>
+</div>
+
+<!-- ТАБЛИЦА ПОДЗАДАЧ -->
+<h2 style="text-align:center;">Подзадачи</h2>
+
+<table class="table-subtask">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Завершена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="st : ${subTasks}">
+        <td th:text="${st.id}"></td>
+        <td th:text="${st.name}"></td>
+        <!--<td th:text="${st.is_completed ? 'Выполнена' : 'Не выполнена'}"></td>-->
+        <td>
+            <form th:action="@{'/subtasks/' + ${st.id} + '/toggle'}" method="post">
+                <input type="checkbox"
+                       name="is_completed"
+                       th:checked="${st.is_completed}"
+                       onchange="this.form.submit()">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!-- ДОБАВИТЬ ПОДЗАДАЧУ -->
+<h3 style="text-align:center;">Добавить подзадачу</h3>
+<form th:action="@{'/tasks/' + ${task.id} + '/subtasks/add'}"
+      th:object="${newSubTask}"
+      method="post"
+      style="width:300px; margin:20px auto; display:flex; flex-direction:column; gap:10px;">
+
+    <label>Название подзадачи:
+        <input type="text" th:field="*{name}" required>
+    </label>
+
+    <button type="submit" class="btn-new">Добавить</button>
+</form>
+
+</body>
+</html>
+
+</body>
+</html>

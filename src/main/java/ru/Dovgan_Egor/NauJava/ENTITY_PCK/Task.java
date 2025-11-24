@@ -3,9 +3,11 @@ package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name = "task")
@@ -21,7 +23,6 @@ public class Task {
 
     private User userId;
 
-
     @ManyToOne
     private TaskStatus status_id;
 
@@ -31,13 +32,18 @@ public class Task {
     @Column
     private String description;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dt_beg")
     private Date dt_beg;
     //private LocalDate dtBeg;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dt_end")
     private Date dt_end;
     //private LocalDate dtEnd;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SubTask> subTasks;
 
     public Long getId() {
         return id;

@@ -63,7 +63,7 @@ public class Notification {
         return isRead;
     }
 
-    public void setIs_read(Boolean isRead) {
+    public void setIsRead(Boolean isRead) {
         this.isRead = isRead;
     }
 

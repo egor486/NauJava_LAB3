@@ -3,55 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Список задач</title>
-    <style>
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h1 {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="/css/notifications.css">
 </head>
 <body>
 
 <div style="text-align: right; margin: 10px;">
     <form th:action="@{/logout}" method="post">
-        <button type="submit" id="logout">Выйти</button>
+        <button type="submit" id="logout" class="btn-new">Выйти</button>
     </form>
 </div>
+
+<div style="text-align: right; margin: 10px; margin-top: 30 px;">
+    <a href="/tasks/add">
+        <button type="button" class="btn-new">Создать задачу</button>
+    </a>
+</div>
+
+<div th:replace="~{fragments/notifications :: notifFragment}"></div>
 
 <h1>Список задач</h1>
 <table>
     <thead>
     <tr>
-        <th>ID</th>
+        <!--<th>ID</th>-->
         <th>Название</th>
         <th>Описание</th>
         <th>Статус</th>
-        <th>Пользователь</th>
+        <!--<th>Пользователь</th>-->
         <th>Дата начала</th>
         <th>Дата окончания</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="task : ${tasks}">
-        <td th:text="${task.id}">1</td>
+        <!--<td th:text="${task.id}">1</td>-->
         <td th:text="${task.name}">Название задачи</td>
         <td th:text="${task.description}">Описание</td>
         <td th:text="${task.status_id != null ? task.status_id.name : 'Нет статуса'}">Статус</td>
-        <td th:text="${task.user_id != null ? task.user_id.login : 'Нет пользователя'}">Пользователь</td>
+        <!--<td th:text="${task.user_id != null ? task.user_id.login : 'Нет пользователя'}">Пользователь</td>-->
         <td th:text="${#dates.format(task.dt_beg, 'yyyy-MM-dd')}">2025-01-01</td>
         <td th:text="${#dates.format(task.dt_end, 'yyyy-MM-dd')}">2025-12-31</td>
+        <td>
+            <a th:href="@{'/tasks/edit/' + ${task.id}}">
+                <button type="button" style="border: none; background: transparent; padding: 0;">
+                    <img src="/images/pencil.png" alt="Редактировать"  style="width: 20px; height: 20px;">
+                </button>
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>

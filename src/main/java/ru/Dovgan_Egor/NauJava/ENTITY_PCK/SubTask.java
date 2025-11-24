@@ -16,6 +16,12 @@ public class SubTask {
     @JsonIgnoreProperties({"subTasks", "user_id", "status_id"})
     private Task task;
 
+    @Column
+    private String name;
+
+    @Column
+    private Boolean is_completed;
+
     public Long getId() {
         return id;
     }
@@ -48,9 +54,5 @@ public class SubTask {
         this.is_completed = is_completed;
     }
 
-    @Column
-    private String name;
 
-    @Column
-    private Boolean is_completed;
 }

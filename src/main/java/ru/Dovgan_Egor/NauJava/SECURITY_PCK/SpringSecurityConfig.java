@@ -43,6 +43,8 @@ public class SpringSecurityConfig {
                         .requestMatchers("/reports/**").permitAll()
                         .requestMatchers("/login", "/perform_login", "/users/add").permitAll()
                         .requestMatchers("/registration", "/login", "/perform_login", "/users/add").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/users/all").hasRole("ADMIN")
                         .requestMatchers("/users/findByName/**").hasAnyRole("ADMIN","USER")
                         .requestMatchers("/tasks-page").hasAnyRole("ADMIN","USER")

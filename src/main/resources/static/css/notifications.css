@@ -1,0 +1,28 @@
+.notif-popup {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #ffdddd;
+    border: 2px solid #ff5555;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.notif-item {
+    margin-bottom: 10px;
+}
+
+.notif-item button {
+    background-color: #ff5555;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.notif-item button:hover {
+    background-color: #ff2222;
+}
