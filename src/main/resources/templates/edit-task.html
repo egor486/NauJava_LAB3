@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>Редактировать задачу</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/notifications.css">
 </head>
 <body>
 
 <h1 style="text-align: center;">Редактирование задачи</h1>
+
+<div th:replace="~{fragments/notifications :: notifFragment}"></div>
 
 <form th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post"
       style="width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;">

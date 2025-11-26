@@ -37,6 +37,10 @@ public class NotificationService {
 
             if (task.getDt_end() == null) continue;
 
+            if (task.getStatus_id().getId() == 3) {
+                continue;
+            }
+
             Timestamp deadline = new Timestamp(task.getDt_end().getTime());
 
             // если задача просрочена
