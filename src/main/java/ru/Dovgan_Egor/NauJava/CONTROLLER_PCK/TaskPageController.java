@@ -61,10 +61,10 @@ public class TaskPageController {
         String username = auth.getName();
 
         User user = userRepository.findByLogin(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пользовтель не найден"));
 
         TaskStatus defaultStatus = taskStatusRepository.findByName("НОВАЯ")
-                .orElseThrow(() -> new RuntimeException("Status НОВАЯ not found"));
+                .orElseThrow(() -> new RuntimeException("Статус НОВАЯ не найден"));
 
         task.setUser_id(user);
         task.setStatus_id(defaultStatus);
@@ -78,7 +78,7 @@ public class TaskPageController {
     @GetMapping("/tasks/edit/{id}")
     public String editTaskForm(@PathVariable Long id, Model model) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new RuntimeException("Задача не найдена"));
 
         List<SubTask> subTasks = subTaskRepository.findByTaskId(id);
 
@@ -100,7 +100,7 @@ public class TaskPageController {
     @PostMapping("/tasks/edit/{id}")
     public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task updatedTask) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new RuntimeException("Задача не найдена"));
 
         // Обновляем только изменяемые поля
         task.setName(updatedTask.getName());
@@ -131,7 +131,7 @@ public class TaskPageController {
     )
     {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new RuntimeException("Задача не найдена"));
 
         subTask.setTask_id(task);
         subTask.setIs_completed(false); // по умолчанию новая подзадача не выполнена
@@ -141,11 +141,12 @@ public class TaskPageController {
         return "redirect:/tasks/edit/" + taskId;
     }
 
+    // Для редактирования статуса подзадач
     @PostMapping("/subtasks/{subTaskId}/toggle")
     public String toggleSubTask(@PathVariable Long subTaskId) {
 
         SubTask subTask = subTaskRepository.findById(subTaskId)
-                .orElseThrow(() -> new RuntimeException("SubTask not found"));
+                .orElseThrow(() -> new RuntimeException("Подзадача не найдена"));
 
         // Переключение статуса
         boolean newStatus = !Boolean.TRUE.equals(subTask.getIs_completed());
@@ -153,6 +154,19 @@ public class TaskPageController {
         subTaskRepository.save(subTask);
 
         Long taskId = subTask.getTask_id().getId();
+
+        return "redirect:/tasks/edit/" + taskId;
+    }
+
+    // Для удаления подзадач
+    @PostMapping("/subtasks/{subTaskId}/delete")
+    public String deleteSubTask(@PathVariable Long subTaskId){
+        SubTask subTask = subTaskRepository.findById(subTaskId)
+                .orElseThrow(() -> new RuntimeException("Подзадача не найдена"));
+
+        Long taskId = subTask.getTask_id().getId();
+
+        subTaskRepository.delete(subTask);
 
         return "redirect:/tasks/edit/" + taskId;
     }

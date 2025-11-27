@@ -29,7 +29,7 @@ public class NotificationController {
     public String viewNotifications(Model model, Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByLogin(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
         //List<Notification> list = notificationRepository.findByIsReadFalse();
         List<Notification> list = notificationRepository.findByUser_idAndIsReadFalse(user);
         model.addAttribute("notifications", list);
@@ -48,7 +48,7 @@ public class NotificationController {
     @PostMapping("/notifications/read/{id}")
     public String markRead(@PathVariable Long id, HttpServletRequest request, Principal principal) {
         Notification n = notificationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found"));
+                .orElseThrow(() -> new RuntimeException("Не найдено уведомление"));
 
         if (!n.getUser_id().getLogin().equals(principal.getName())) {
             throw new RuntimeException("Access denied");

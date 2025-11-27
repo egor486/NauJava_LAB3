@@ -61,6 +61,7 @@
         <th>ID</th>
         <th>Название</th>
         <th>Завершена</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -75,6 +76,14 @@
                        th:checked="${st.is_completed}"
                        onchange="this.form.submit()">
             </form>
+        </td>
+        <td>
+            <button type="button"
+                    class="delete-btn"
+                    th:attr="data-id=${st.id}"
+                    onclick="openSubTaskDeleteModal(this)">
+                ✖
+            </button>
         </td>
     </tr>
     </tbody>
@@ -94,6 +103,21 @@
 
     <button type="submit" class="btn-new">Добавить</button>
 </form>
+
+<!-- Модальное окно удаления подзадачи -->
+<div id="subTaskDeleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удалить подзадачу?</h3>
+        <p>Это действие нельзя отменить.</p>
+
+        <form id="subTaskDeleteForm" method="post">
+            <button type="submit" class="confirm">Удалить</button>
+            <button type="button" class="cancel" onclick="closeSubTaskDeleteModal()">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script src="/js/subtasks.js"></script>
 
 </body>
 </html>
