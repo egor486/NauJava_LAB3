@@ -36,14 +36,6 @@ public class NotificationController {
         return "notifications";
     }
 
-/*    @PostMapping("/notifications/read/{id}")
-    public String markRead(@PathVariable Long id) {
-        Notification n = notificationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found"));
-        n.setIs_read(true);
-        notificationRepository.save(n);
-        return "redirect:/notifications";
-    }*/
 
     @PostMapping("/notifications/read/{id}")
     public String markRead(@PathVariable Long id, HttpServletRequest request, Principal principal) {

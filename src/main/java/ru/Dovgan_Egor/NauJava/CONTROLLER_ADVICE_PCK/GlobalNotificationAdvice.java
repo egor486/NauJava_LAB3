@@ -29,7 +29,14 @@ public class GlobalNotificationAdvice {
             User user = userRepository.findByLogin(principal.getName())
                     .orElseThrow(() -> new RuntimeException("User not found"));
             List<Notification> unread = notificationRepository.findByUser_idAndIsReadFalse(user);
+
+            // Формируем отдельное сообщение для вывода пользователю
+            List<String> messagesForView = unread.stream()
+                    .map(n -> n.getMessage().replaceAll("\\[task=\\d+\\]", ""))
+                    .toList();
+
             model.addAttribute("notifications", unread);
+            model.addAttribute("notificationMessages", messagesForView);
         }
     }
 }

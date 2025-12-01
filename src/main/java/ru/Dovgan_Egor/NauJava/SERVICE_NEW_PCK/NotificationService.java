@@ -46,23 +46,23 @@ public class NotificationService {
             // если задача просрочена
             if (deadline.before(now)) {
 
+                // Добавим маркер для определения по: задаче, статусу и пользовтелю, до этого была неверная логика(проверялся только статус и пользователь)
+                String marker = "[task=" + task.getId() + "]";
 
-/*                boolean exists = notificationRepository
-                        .findByIsReadFalse()
-                        .stream()
-                        .anyMatch(n ->
-                                n.getUser_id().getId().equals(task.getUser_id().getId())
-                                        && n.getMessage().contains(task.getName())
-                        );*/
-                boolean exists = !notificationRepository
+/*                boolean exists = !notificationRepository
                         .findByUserAndStatus(task.getUser_id(), task.getStatus_id())
-                        .isEmpty();
+                        .isEmpty();*/
+                boolean exists = notificationRepository.existsByUserStatusAndMessageMarker(
+                        task.getUser_id(),
+                        task.getStatus_id(),
+                        marker
+                );
 
                 if (!exists) {
                     Notification n = new Notification();
                     n.setUser_id(task.getUser_id());
                     n.setStatus_id(task.getStatus_id());
-                    n.setMessage("Задача \"" + task.getName() + "\" просрочена!");
+                    n.setMessage("Задача \"" + task.getName() + "\" просрочена!" + marker);
                     n.setScheduled_at(now);
                     n.setIsRead(false);
 

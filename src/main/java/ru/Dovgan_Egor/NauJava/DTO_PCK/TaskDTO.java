@@ -58,8 +58,6 @@ public class TaskDTO {
                 task.getUser_id() != null ? task.getUser_id().getLogin() : "Нет пользователя",
                 task.getDt_beg() != null ? task.getDt_beg().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate() : null,
                 task.getDt_end() != null ? task.getDt_end().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate() : null
-                //task.getDtBeg(),
-                //task.getDtEnd()
         );
     }
 }

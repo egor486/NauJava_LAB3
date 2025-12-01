@@ -38,7 +38,7 @@ public class LoginLogoutUITest {
         String baseUrl = "http://localhost:8080/login"; // URL страницы входа
         driver.get(baseUrl);
 
-        WebElement loginInput = driver.findElement(By.name("username")); // или "login" в зависимости от формы
+        WebElement loginInput = driver.findElement(By.name("username")); // или "login" в зависимости от формы UPD 02.12.2025 теперь всегда username вне зависимости
         WebElement passwordInput = driver.findElement(By.name("password"));
 
         loginInput.sendKeys("egrior"); // корректный логин
@@ -47,7 +47,7 @@ public class LoginLogoutUITest {
         WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
         loginButton.click();
 
-        Thread.sleep(1000); // временная пауза, для реального теста лучше WebDriverWait
+        Thread.sleep(1000);
         assertTrue(driver.getCurrentUrl().contains("/tasks-page"));
 
         WebElement logoutButton = driver.findElement(By.id("logout"));

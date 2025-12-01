@@ -29,8 +29,6 @@ public class TaskController {
     public List<TaskDTO> getTasksBetweenDates(
             @RequestParam("start") Date start,
             @RequestParam("end") Date end
-            //@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            //@RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end
             ) {
         return taskRepositoryCustom.findByDtBegBetween(start, end)
                 .stream()
@@ -58,43 +56,4 @@ public class TaskController {
                 .body("Произошла ошибка: " + ex.getMessage());
     }
 
-    /*private final TaskRepositoryCustom taskRepositoryCustom;
-
-
-    public TaskController(TaskRepositoryCustom taskRepositoryCustom) {
-        this.taskRepositoryCustom = taskRepositoryCustom;
-    }
-
-
-    @GetMapping("/between")
-    public List<Task> getTasksBetweenDates(@RequestParam("start") Date start,
-                                           @RequestParam("end") Date end) {
-        return taskRepositoryCustom.findByDtBegBetween(start, end);
-    }
-
-
-    @GetMapping("/by-user")
-    public List<Task> getTasksByUserLogin(@RequestParam("login") String login) {
-        return taskRepositoryCustom.findTasksByUserLogin(login);
-    }
-
-    /*@GetMapping("/by-user")
-    public List<Task> getTasksByUserLogin(@RequestParam("login") String login) {
-        if (login.equals("error")) {
-            throw new NoSuchElementException("Пользователь не найден");
-        }
-        return taskRepositoryCustom.findTasksByUserLogin(login);
-    }*/
-
-    /*@ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNotFound(NoSuchElementException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Ресурс не найден: " + ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleOtherErrors(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Произошла ошибка: " + ex.getMessage());
-    }*/
 }

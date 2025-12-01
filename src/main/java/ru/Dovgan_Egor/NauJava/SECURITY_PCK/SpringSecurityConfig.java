@@ -57,8 +57,6 @@ public class SpringSecurityConfig {
                         .defaultSuccessUrl("/tasks-page", true)
                         .permitAll()
                 )
-                //.formLogin(form -> form.permitAll())
-                //.logout(logout -> logout.permitAll());
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")

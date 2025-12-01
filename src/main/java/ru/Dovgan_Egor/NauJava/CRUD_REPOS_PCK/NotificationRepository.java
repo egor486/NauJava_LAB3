@@ -18,4 +18,11 @@ public interface NotificationRepository extends CrudRepository <Notification, Lo
 
     @Query("SELECT n FROM Notification n WHERE n.user_id = :user AND n.status_id = :status")
     List<Notification> findByUserAndStatus(@Param("user") User user, @Param("status") TaskStatus status);
+
+    @Query("SELECT COUNT(n) > 0 FROM Notification n WHERE n.user_id = :user AND n.status_id = :status AND n.message LIKE %:marker%")
+    boolean existsByUserStatusAndMessageMarker(
+            @Param("user") User user,
+            @Param("status") TaskStatus status,
+            @Param("marker") String marker
+    );
 }
