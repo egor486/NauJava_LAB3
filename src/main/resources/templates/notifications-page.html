@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все уведомления</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/notifications.css">
+</head>
+<body>
+
+<h2 style="text-align:center;">Все уведомления</h2>
+
+<div class="notif-all-container">
+
+    <!-- Если уведомления есть -->
+    <div th:each="n : ${notifications}" class="notif-card">
+
+        <!-- Текст уведомления -->
+        <div class="notif-header" th:text="${n.message}"></div>
+
+        <!-- Дата -->
+        <div class="notif-time"
+             th:text="${#dates.format(n.scheduled_at, 'dd.MM.yyyy HH:mm')}"></div>
+
+    </div>
+
+    <!-- Если уведомлений нет -->
+    <div th:if="${#lists.isEmpty(notifications)}"
+         style="text-align:center; padding:20px; font-size:18px; color:#555;">
+        Уведомлений нет
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/tasks-page">Назад к задачам</a>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

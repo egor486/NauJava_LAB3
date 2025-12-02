@@ -51,5 +51,25 @@ public class NotificationController {
         return "redirect:" + (referer != null ? referer : "/tasks-page");
     }
 
+    @GetMapping("/notifications-page")
+    public String viewAllNotifications(Model model, Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByLogin(username)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+
+        List<Notification> list = notificationRepository.findAllByUserOrderByDate(user);
+
+        list.forEach(n -> {
+            if (n.getMessage() != null) {
+                String cleaned = n.getMessage()
+                        .replaceAll("\\[task=\\d+]", "")
+                        .trim();
+                n.setMessage(cleaned);
+            }
+        });
+
+        model.addAttribute("notifications", list);
+        return "notifications-page";
+    }
 
 }

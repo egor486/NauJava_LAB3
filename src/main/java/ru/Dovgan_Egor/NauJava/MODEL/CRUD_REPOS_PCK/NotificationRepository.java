@@ -25,4 +25,7 @@ public interface NotificationRepository extends CrudRepository <Notification, Lo
             @Param("status") TaskStatus status,
             @Param("marker") String marker
     );
+
+    @Query("SELECT n FROM Notification n WHERE n.user_id = :user ORDER BY n.scheduled_at DESC")
+    List<Notification> findAllByUserOrderByDate(@Param("user") User user);
 }
