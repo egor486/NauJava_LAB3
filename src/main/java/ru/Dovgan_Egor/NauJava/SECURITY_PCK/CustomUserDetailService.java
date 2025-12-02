@@ -6,12 +6,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class CustomUserDetailService implements UserDetailsService {
 

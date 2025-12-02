@@ -1,11 +1,9 @@
-package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package ru.Dovgan_Egor.NauJava.CONTROLLER_PCK;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.Dovgan_Egor.NauJava.DAO_PCK.TaskRepositoryCustom;
 import ru.Dovgan_Egor.NauJava.DTO_PCK.TaskDTO;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
 
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;

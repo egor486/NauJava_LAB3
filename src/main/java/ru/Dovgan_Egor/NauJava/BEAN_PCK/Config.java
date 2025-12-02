@@ -1,7 +1,6 @@
 package ru.Dovgan_Egor.NauJava.BEAN_PCK;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

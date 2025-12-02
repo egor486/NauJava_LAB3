@@ -1,21 +1,21 @@
 package ru.Dovgan_Egor.NauJava.CONTROLLER_PCK;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.SubTaskRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.TaskStatusRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.SubTask;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.TaskStatus;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
-import ru.Dovgan_Egor.NauJava.REPOSITORY_PCK.TaskRestRepository;
+import org.springframework.web.bind.annotation.*;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.SubTaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskStatusRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.SubTask;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.TaskStatus;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.REPOSITORY_PCK.TaskRestRepository;
+
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -89,7 +89,6 @@ public class TaskPageController {
         model.addAttribute("newSubTask", new SubTask());
 
         // для работы со статусами
-        //List<TaskStatus> allStatuses = (List<TaskStatus>) taskStatusRepository.findAll();
         List<TaskStatus> allStatuses = (List<TaskStatus>) taskStatusRepository.findStatusEditUser();
         model.addAttribute("allStatuses", allStatuses);
 
@@ -98,9 +97,32 @@ public class TaskPageController {
 
 
     @PostMapping("/tasks/edit/{id}")
-    public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task updatedTask) {
+    public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task updatedTask, Model model) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Задача не найдена"));
+
+        // Реализуем логику проверки наличия незавершенных подзадач
+        Long newStatusId = updatedTask.getStatus_id().getId();
+
+        Long doneStatus = 3L;
+
+        if (newStatusId.equals(doneStatus)){
+            long countUnfinished = subTaskRepository.countByTaskIdAndCompletedFalse(id);
+
+            if (countUnfinished > 0) {
+                model.addAttribute("task", task);
+                model.addAttribute("subTasks",
+                        subTaskRepository.findByTaskId(id));
+                model.addAttribute("newSubTask", new SubTask());
+                model.addAttribute("allStatuses",
+                        taskStatusRepository.findStatusEditUser());
+
+                model.addAttribute("errorMessage",
+                        "Нельзя завершить задачу: есть незавершенные подзадачи.");
+
+                return "edit-task";
+            }
+        }
 
         // Обновляем только изменяемые поля
         task.setName(updatedTask.getName());
@@ -127,48 +149,102 @@ public class TaskPageController {
     @PostMapping("/tasks/{taskId}/subtasks/add")
     public String addSubTask(
             @PathVariable Long taskId,
-            @ModelAttribute("newSubTask") SubTask subTask
+            @RequestParam("taskName") String taskName,
+            @RequestParam("taskDescription") String taskDescription,
+            @RequestParam("dt_beg") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtBeg,
+            @RequestParam("dt_end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtEnd,
+            //@RequestParam("statusId") Long statusId,
+            @RequestParam("subTaskName") String subTaskName
     )
     {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Задача не найдена"));
+        task.setName(taskName);
+        task.setDescription(taskDescription);
+        task.setDt_beg(dtBeg);
+        task.setDt_end(dtEnd);
+        //task.setStatus_id(taskStatusRepository.findById(statusId).orElseThrow(() -> new RuntimeException("Статус не найден")));
+        taskRepository.save(task);
 
+        TaskStatus inProgressStatus = taskStatusRepository.findByName("В ПРОГРЕССЕ")
+                .orElseThrow(() -> new RuntimeException("Статус В ПРОГРЕССЕ не найден"));
+
+        // Автоматически переводим задачу в статус "В ПРОГРЕССЕ" при создании новой подзадачи
+        task.setStatus_id(inProgressStatus);
+        taskRepository.save(task);
+
+        SubTask subTask = new SubTask();
         subTask.setTask_id(task);
-        subTask.setIs_completed(false); // по умолчанию новая подзадача не выполнена
-
+        subTask.setName(subTaskName);
+        subTask.setCompleted(false);
         subTaskRepository.save(subTask);
 
         return "redirect:/tasks/edit/" + taskId;
     }
 
-    // Для редактирования статуса подзадач
+    // Для редактирования статуса подзадач (в разработке)
     @PostMapping("/subtasks/{subTaskId}/toggle")
-    public String toggleSubTask(@PathVariable Long subTaskId) {
+    public String toggleSubTask(@PathVariable Long subTaskId,
+                                @RequestParam("taskName") String taskName,
+                                @RequestParam("taskDescription") String taskDescription,
+                                @RequestParam("dt_beg") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtBeg,
+                                @RequestParam("dt_end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtEnd,
+                                @RequestParam("statusId") Long statusId ) {
 
         SubTask subTask = subTaskRepository.findById(subTaskId)
                 .orElseThrow(() -> new RuntimeException("Подзадача не найдена"));
 
+        Task task = subTask.getTask_id();
+        task.setName(taskName);
+        task.setDescription(taskDescription);
+        task.setDt_beg(dtBeg);
+        task.setDt_end(dtEnd);
+
         // Переключение статуса
-        boolean newStatus = !Boolean.TRUE.equals(subTask.getIs_completed());
-        subTask.setIs_completed(newStatus);
+        boolean newStatus = !Boolean.TRUE.equals(subTask.getCompleted());
+        subTask.setCompleted(newStatus);
         subTaskRepository.save(subTask);
 
-        Long taskId = subTask.getTask_id().getId();
+        // Если пользовтель убирает чекбокс - скидываем задачу в статус "В ПРОГРЕССЕ"
+         if (!newStatus && "ЗАВЕРШЕНА".equals(task.getStatus_id().getName())) {
+            TaskStatus inProgress = taskStatusRepository.findByName("В ПРОГРЕССЕ")
+                    .orElseThrow(() -> new RuntimeException("Статус В ПРОГРЕССЕ не найден"));
 
-        return "redirect:/tasks/edit/" + taskId;
+            task.setStatus_id(inProgress);
+            System.out.println(newStatus);
+        }
+        else {
+            task.setStatus_id(taskStatusRepository.findById(statusId).orElseThrow(() -> new RuntimeException("Статус не найден")));
+        }
+        taskRepository.save(task);
+
+        return "redirect:/tasks/edit/" + task.getId();
     }
 
     // Для удаления подзадач
     @PostMapping("/subtasks/{subTaskId}/delete")
-    public String deleteSubTask(@PathVariable Long subTaskId){
+    public String deleteSubTask(@PathVariable Long subTaskId,
+                                @RequestParam("taskName") String taskName,
+                                @RequestParam("taskDescription") String taskDescription,
+                                @RequestParam("dt_beg") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtBeg,
+                                @RequestParam("dt_end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtEnd,
+                                @RequestParam("statusId") Long statusId){
         SubTask subTask = subTaskRepository.findById(subTaskId)
                 .orElseThrow(() -> new RuntimeException("Подзадача не найдена"));
 
-        Long taskId = subTask.getTask_id().getId();
+        Task task = subTask.getTask_id();
+
+        task.setName(taskName);
+        task.setDescription(taskDescription);
+        task.setDt_beg(dtBeg);
+        task.setDt_end(dtEnd);
+        task.setStatus_id(taskStatusRepository.findById(statusId)
+                .orElseThrow(() -> new RuntimeException("Статус не найден")));
+        taskRepository.save(task);
 
         subTaskRepository.delete(subTask);
 
-        return "redirect:/tasks/edit/" + taskId;
+        return "redirect:/tasks/edit/" + task.getId();
     }
 
 }

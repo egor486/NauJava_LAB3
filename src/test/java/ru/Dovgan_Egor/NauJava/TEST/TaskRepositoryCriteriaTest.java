@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.TaskRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
 import ru.Dovgan_Egor.NauJava.DAO_PCK.TaskRepositoryCustom;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -3,8 +3,8 @@ package ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 import ru.Dovgan_Egor.NauJava.EXCEPTION_PCK.UserNotFoundException;
 
 import java.sql.Timestamp;

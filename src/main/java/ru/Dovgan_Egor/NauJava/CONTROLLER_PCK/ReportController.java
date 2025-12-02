@@ -2,8 +2,8 @@ package ru.Dovgan_Egor.NauJava.CONTROLLER_PCK;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Report;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.ReportStatus;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Report;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.ReportStatus;
 import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.ReportService;
 
 @RestController

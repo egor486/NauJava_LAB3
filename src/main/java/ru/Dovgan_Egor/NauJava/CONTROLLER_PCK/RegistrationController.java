@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.UserService;
 
 @Controller

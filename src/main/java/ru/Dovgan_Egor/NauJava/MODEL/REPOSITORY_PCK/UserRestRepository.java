@@ -1,7 +1,7 @@
-package ru.Dovgan_Egor.NauJava.REPOSITORY_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.REPOSITORY_PCK;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 
 import java.util.List;
 

@@ -3,11 +3,11 @@ package ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.NotificationRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.TaskRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Notification;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.NotificationRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Notification;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
 
 import java.sql.Timestamp;
 import java.util.List;

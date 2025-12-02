@@ -1,4 +1,4 @@
-package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -19,8 +19,8 @@ public class SubTask {
     @Column
     private String name;
 
-    @Column
-    private Boolean is_completed;
+    @Column(name = "is_completed")
+    private Boolean completed;
 
     public Long getId() {
         return id;
@@ -46,12 +46,12 @@ public class SubTask {
         this.name = name;
     }
 
-    public Boolean getIs_completed() {
-        return is_completed;
+    public Boolean getCompleted() {
+        return completed;
     }
 
-    public void setIs_completed(Boolean is_completed) {
-        this.is_completed = is_completed;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
 

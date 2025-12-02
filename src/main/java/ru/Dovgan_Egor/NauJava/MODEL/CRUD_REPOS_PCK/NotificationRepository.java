@@ -1,11 +1,11 @@
-package ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Notification;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.TaskStatus;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.User;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Notification;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.TaskStatus;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 
 import java.util.List;
 

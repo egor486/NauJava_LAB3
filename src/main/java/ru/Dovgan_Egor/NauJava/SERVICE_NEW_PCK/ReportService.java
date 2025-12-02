@@ -3,12 +3,12 @@ package ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.ReportRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.UserRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Report;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.ReportStatus;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
-import ru.Dovgan_Egor.NauJava.REPOSITORY_PCK.TaskRestRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.ReportRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Report;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.ReportStatus;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.REPOSITORY_PCK.TaskRestRepository;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

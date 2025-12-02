@@ -1,11 +1,10 @@
-package ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK;
 
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import ru.Dovgan_Egor.NauJava.DAO_PCK.TaskRepositoryCustom;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
 
 import java.util.Date;
 import java.util.List;

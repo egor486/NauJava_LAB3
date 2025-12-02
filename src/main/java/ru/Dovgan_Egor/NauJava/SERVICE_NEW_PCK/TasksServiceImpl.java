@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.SubTaskRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.TaskRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.SubTask;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.SubTaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.SubTask;
 
 import java.util.List;
 

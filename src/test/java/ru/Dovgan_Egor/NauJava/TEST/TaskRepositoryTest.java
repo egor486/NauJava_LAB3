@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.SubTaskRepository;
-import ru.Dovgan_Egor.NauJava.CRUD_REPOS_PCK.TaskRepository;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.SubTask;
-import ru.Dovgan_Egor.NauJava.ENTITY_PCK.Task;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.SubTaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.SubTask;
+import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
 import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.TasksService;
 
 import java.util.List;

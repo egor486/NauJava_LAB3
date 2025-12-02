@@ -10,9 +10,13 @@
 
 <h1 style="text-align: center;">Редактирование задачи</h1>
 
+<div th:if="${errorMessage}" class="alert alert-danger" style="text-align:center;">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <div th:replace="~{fragments/notifications :: notifFragment}"></div>
 
-<form th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post"
+<form id="editTaskForm" th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post"
       style="width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;">
 
     <label>Название:
@@ -70,11 +74,11 @@
         <td th:text="${st.name}"></td>
         <!--<td th:text="${st.is_completed ? 'Выполнена' : 'Не выполнена'}"></td>-->
         <td>
-            <form th:action="@{'/subtasks/' + ${st.id} + '/toggle'}" method="post">
+            <form th:action="@{'/subtasks/' + ${st.id} + '/toggle'}" method="post" class="subtask-toggle-form" th:attr="data-task-id=${task.id}">
                 <input type="checkbox"
-                       name="is_completed"
-                       th:checked="${st.is_completed}"
-                       onchange="this.form.submit()">
+                       name="completed"
+                       th:checked="${st.completed}">
+                       <!--onchange="this.form.submit()">-->
             </form>
         </td>
         <td>
@@ -92,13 +96,23 @@
 
 <!-- ДОБАВИТЬ ПОДЗАДАЧУ -->
 <h3 style="text-align:center;">Добавить подзадачу</h3>
-<form th:action="@{'/tasks/' + ${task.id} + '/subtasks/add'}"
-      th:object="${newSubTask}"
+<form id = "addSubTaskForm" th:action="@{'/tasks/' + ${task.id} + '/subtasks/add'}"
       method="post"
       style="width:300px; margin:20px auto; display:flex; flex-direction:column; gap:10px;">
 
-    <label>Название подзадачи:
+    <!-- Скрытые поля задачи -->
+    <input type="hidden" name="taskName" th:value="${task.name}" />
+    <input type="hidden" name="taskDescription" th:value="${task.description}" />
+    <input type="hidden" name="dt_beg" th:value="${#dates.format(task.dt_beg, 'yyyy-MM-dd')}" />
+    <input type="hidden" name="dt_end" th:value="${#dates.format(task.dt_end, 'yyyy-MM-dd')}" />
+    <input type="hidden" name="statusId" th:value="${task.status_id.id}" />
+
+   <!-- <label>Название подзадачи:
         <input type="text" th:field="*{name}" required>
+    </label>-->
+
+    <label>Название подзадачи:
+        <input type="text" name="subTaskName" required>
     </label>
 
     <button type="submit" class="btn-new">Добавить</button>
@@ -117,7 +131,9 @@
     </div>
 </div>
 
-<script src="/js/subtasks.js"></script>
+<script src ="/js/subtasks.js"></script>
+<script src ="/js/subtaskcheckbox.js"></script>
+<script src ="/js/task.js"></script>
 
 </body>
 </html>

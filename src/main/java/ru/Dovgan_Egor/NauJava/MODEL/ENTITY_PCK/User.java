@@ -1,4 +1,4 @@
-package ru.Dovgan_Egor.NauJava.ENTITY_PCK;
+package ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
