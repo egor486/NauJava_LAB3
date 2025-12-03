@@ -28,7 +28,7 @@
 
 <div th:replace="~{fragments/notifications :: notifFragment}"></div>
 
-<form th:action="@{/tasks-page}" method="get" style="margin-bottom: 20px; margin-left: 200px">
+<form th:action="@{/tasks-page}" method="get" style="margin-top: 80px; margin-left: 200px">
     <input type="text" name="search"
            th:value="${search}"
            placeholder="Поиск по названию..." />
