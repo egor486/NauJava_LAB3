@@ -38,12 +38,21 @@ public class TaskPageController {
 
     // Визуализация всех задач по пользователю
     @GetMapping("/tasks-page")
-    public String tasksPage(Model model){
+    public String tasksPage(@RequestParam(value = "search", required = false) String search, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
-        List<Task> tasks = taskRepository.findTasksByUserLogin(username);
+        List<Task> tasks;
+
+        if (search != null && !search.isEmpty()) {
+            tasks = taskRepository.findTasksByUserLoginAndNameLikeIgnoreCase(username, search);
+        } else {
+            tasks = taskRepository.findTasksByUserLogin(username);
+        }
+
+        //List<Task> tasks = taskRepository.findTasksByUserLogin(username);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("search", search);
         return "tasks";
     }
 
@@ -65,6 +74,10 @@ public class TaskPageController {
 
         TaskStatus defaultStatus = taskStatusRepository.findByName("НОВАЯ")
                 .orElseThrow(() -> new RuntimeException("Статус НОВАЯ не найден"));
+
+        if (task.getDescription() == null || task.getDescription().trim().isEmpty()) {
+            task.setDescription("Нет описания");
+        }
 
         task.setUser_id(user);
         task.setStatus_id(defaultStatus);
@@ -126,7 +139,13 @@ public class TaskPageController {
 
         // Обновляем только изменяемые поля
         task.setName(updatedTask.getName());
-        task.setDescription(updatedTask.getDescription());
+        //task.setDescription(updatedTask.getDescription());
+        if (updatedTask.getDescription() == null || updatedTask.getDescription().trim().isEmpty()) {
+            task.setDescription("Нет описания");
+        } else {
+            task.setDescription(updatedTask.getDescription());
+        }
+
         task.setDt_beg(updatedTask.getDt_beg());
         task.setDt_end(updatedTask.getDt_end());
         task.setStatus_id(updatedTask.getStatus_id());

@@ -28,6 +28,14 @@
 
 <div th:replace="~{fragments/notifications :: notifFragment}"></div>
 
+<form th:action="@{/tasks-page}" method="get" style="margin-bottom: 20px; margin-left: 200px">
+    <input type="text" name="search"
+           th:value="${search}"
+           placeholder="Поиск по названию..." />
+    <button type="submit" class="btn-new">Поиск</button>
+</form>
+
+
 <h1>Список задач</h1>
 <table>
     <thead>

@@ -13,4 +13,10 @@ public interface TaskRestRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT t FROM Task t WHERE t.userId.login = :login")
     List<Task> findTasksByUserLogin(@Param("login") String login);
+
+    @Query("SELECT t FROM Task t " +
+            "WHERE t.userId.login = :login " +
+            "AND LOWER(t.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<Task> findTasksByUserLoginAndNameLikeIgnoreCase(@Param("login") String login,
+                                                         @Param("name") String name);
 }
