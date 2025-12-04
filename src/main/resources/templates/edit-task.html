@@ -48,9 +48,17 @@
     <button type="submit" class="btn-new">Сохранить изменения</button>
 </form>
 
-<form th:action="@{'/tasks/delete/' + ${task.id}}" method="post" style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;  ">
+<!--<form th:action="@{'/tasks/delete/' + ${task.id}}" method="post" style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;  ">
     <button type="submit" class="btn-new">Удалить</button>
-</form>
+</form>-->
+
+<button type="button"
+        class="btn-new"
+        style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;"
+        th:attr="data-id=${task.id}"
+        onclick="openTaskDeleteModal(this)">
+    Удалить
+</button>
 
 <div style="text-align: center; margin-top: 20px;">
     <a href="/tasks-page">Назад к задачам</a>
@@ -131,9 +139,22 @@
     </div>
 </div>
 
+<div id="taskDeleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удалить задачу?</h3>
+        <p>Это действие нельзя отменить.</p>
+
+        <form id="taskDeleteForm" method="post">
+            <button type="submit" class="confirm">Удалить</button>
+            <button type="button" class="cancel" onclick="closeTaskDeleteModal()">Отмена</button>
+        </form>
+    </div>
+</div>
+
 <script src ="/js/subtasks.js"></script>
-<script src ="/js/subtaskcheckbox.js"></script>
-<script src ="/js/task.js"></script>
+<script src ="/js/subTaskCheckbox.js"></script>
+<script src ="/js/taskGet.js"></script>
+<script src ="/js/taskDelete.js"></script>
 
 </body>
 </html>

@@ -41,7 +41,6 @@ public class TaskPageController {
     public String tasksPage(@RequestParam(value = "search", required = false) String search, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-
         List<Task> tasks;
 
         if (search != null && !search.isEmpty()) {

@@ -9,6 +9,10 @@
 <div class="login-container">
     <h2>Добро пожаловать</h2>
 
+    <div th:if="${param.error}" class="error-message">
+        Неверный логин или пароль
+    </div>
+
     <form th:action="@{/perform_login}" method="post">
         <div>
             <label>Логин<br> <input type="text" name="username"/></label>
@@ -23,6 +27,8 @@
 
     <p class="register-text ">Нет аккаунта? <a th:href="@{/registration}">Зарегистрироваться</a></p>
 </div>
+
+
 
 </body>
 </html>

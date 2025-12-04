@@ -197,7 +197,7 @@ h1 {
     text-align: center;
 }
 
-/* Кнопки */
+/* Кнопки модального окна*/
 .modal-content .confirm {
     background: red;
     color: white;
@@ -217,6 +217,7 @@ h1 {
     margin-left: 10px;
 }
 
+/* Предупреждение на странице редактирования */
 .alert {
     padding: 10px 15px;
     margin: 10px auto;
@@ -229,4 +230,18 @@ h1 {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
+}
+
+/*Сообщение об ошибке на странице входа*/
+.error-message {
+    background-color: white;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
