@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
-import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.UserService;
+import ru.Dovgan_Egor.NauJava.SERVICE.UserService;
 
 
 import static io.restassured.RestAssured.given;

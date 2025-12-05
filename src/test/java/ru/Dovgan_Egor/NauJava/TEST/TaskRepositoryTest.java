@@ -9,7 +9,7 @@ import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.SubTaskRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.SubTask;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Task;
-import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.TasksService;
+import ru.Dovgan_Egor.NauJava.SERVICE.TasksService;
 
 import java.util.List;
 import java.util.UUID;

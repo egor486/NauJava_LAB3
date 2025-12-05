@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
-import ru.Dovgan_Egor.NauJava.SERVICE_NEW_PCK.UserService;
+import ru.Dovgan_Egor.NauJava.SERVICE.UserService;
 
 import java.util.List;
 import java.util.Optional;
