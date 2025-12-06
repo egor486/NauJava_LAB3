@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.User;
 import ru.Dovgan_Egor.NauJava.SERVICE.UserService;
 
@@ -17,6 +18,9 @@ import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@TestPropertySource(properties = {
+        "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration"
+})
 public class UserControllerRestTest {
 
     @LocalServerPort
@@ -42,9 +46,12 @@ public class UserControllerRestTest {
 
     @Test
     void testAddUser_success(){
+        String uniqueLogin = "testLogin_" + System.currentTimeMillis();
+        String uniqueName = "TestUser_" + System.currentTimeMillis();
+        
         User user = new User();
-        user.setName("TestUser");
-        user.setLogin("testLogin");
+        user.setName(uniqueName);
+        user.setLogin(uniqueLogin);
         user.setPassword("testPass");
         user.setRole("USER");
 
@@ -55,14 +62,16 @@ public class UserControllerRestTest {
                 .post("/users/add")
                 .then()
                 .statusCode(200)
-                .body("login", equalTo("testLogin"))
+                .body("login", equalTo(uniqueLogin))
                 .body("role", equalTo("USER"));
     }
 
     @Test
     void testAddUser_missingLogin(){
+        String uniqueName = "TestUserMissing_" + System.currentTimeMillis();
+        
         User user = new User();
-        user.setName("TestUserMissing");
+        user.setName(uniqueName);
         user.setPassword("testPass");
         user.setRole("USER");
 
@@ -80,9 +89,12 @@ public class UserControllerRestTest {
 
     @Test
     void testGetAllUsers(){
+        String uniqueLogin = "testLogin_" + System.currentTimeMillis();
+        String uniqueName = "TestUser_" + System.currentTimeMillis();
+        
         User user = new User();
-        user.setName("TestUser");
-        user.setLogin("testLogin");
+        user.setName(uniqueName);
+        user.setLogin(uniqueLogin);
         user.setPassword("testPass");
         user.setRole("USER");
         userService.addUser(user);
@@ -99,9 +111,12 @@ public class UserControllerRestTest {
 
     @Test
     void testFindByName(){
+        String uniqueLogin = "findLogin_" + System.currentTimeMillis();
+        String uniqueName = "FindMe_" + System.currentTimeMillis();
+        
         User user = new User();
-        user.setName("FindMe");
-        user.setLogin("findLogin");
+        user.setName(uniqueName);
+        user.setLogin(uniqueLogin);
         user.setPassword("pass");
         user.setRole("USER");
 
@@ -118,11 +133,11 @@ public class UserControllerRestTest {
         // Ищем пользователя по имени
         given()
                 .accept(ContentType.JSON)
-                .get("/users/findByName/FindMe")
+                .get("/users/findByName/" + uniqueName)
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("[0].login", equalTo("findLogin"));
+                .body("[0].login", equalTo(uniqueLogin));
     }
 
     @Test

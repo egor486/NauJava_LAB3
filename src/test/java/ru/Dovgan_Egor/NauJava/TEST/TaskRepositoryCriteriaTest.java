@@ -67,9 +67,13 @@ class TaskRepositoryCustomTest {
     @Test
     void testFindTasksByUserLogin() {
 
+        // Используем уникальный логин для каждого запуска теста
+        String uniqueLogin = "user_" + System.currentTimeMillis();
+        String uniqueName = "Test User " + System.currentTimeMillis();
+
         User user = new User();
-        user.setLogin("user123");
-        user.setName("Test User");
+        user.setLogin(uniqueLogin);
+        user.setName(uniqueName);
         userRepository.save(user);
 
 
@@ -78,9 +82,9 @@ class TaskRepositoryCustomTest {
         task.setUser_id(user);
         taskRepository.save(task);
 
-        List<Task> found = taskRepositoryCustom.findTasksByUserLogin("user123");
+        List<Task> found = taskRepositoryCustom.findTasksByUserLogin(uniqueLogin);
 
         Assertions.assertFalse(found.isEmpty());
-        Assertions.assertEquals("user123", found.get(0).getUser_id().getLogin());
+        Assertions.assertEquals(uniqueLogin, found.get(0).getUser_id().getLogin());
     }
 }

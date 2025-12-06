@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class TaskStatus {
 
     @Id
-    @GeneratedValue
+    // Без @GeneratedValue - ID задаются вручную для справочника статусов
     private Long id;
 
     @Column
