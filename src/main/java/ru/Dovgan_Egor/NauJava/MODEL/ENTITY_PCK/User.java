@@ -13,14 +13,14 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column
     private String role;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Login is mandatory")
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Логин обязательный")
     private String login;
 
     @Column

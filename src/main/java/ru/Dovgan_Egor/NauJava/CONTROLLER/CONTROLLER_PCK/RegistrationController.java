@@ -26,7 +26,7 @@ public class RegistrationController {
             userService.addUser(user);
             return "redirect:/login";
         } catch (Exception ex) {
-            model.addAttribute("message", "Пользователь с таким логином уже существует");
+            model.addAttribute("message", "Пользователь с таким именем или логином уже существует");
             return "registration";
         }
     }

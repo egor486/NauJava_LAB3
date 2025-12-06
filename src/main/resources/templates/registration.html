@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="loginb">
-<div th:if="${message}">
-    <div th:text="${message}"></div>
-</div>
 
 <div class="reg-container">
     <h2>Регистрация нового пользователя</h2>
+
+    <div th:if="${message}" class="error-message">
+        <div th:text="${message}"></div>
+    </div>
 
     <form th:action="@{/registration}" method="post">
         <div>
