@@ -28,4 +28,11 @@ public class TaskStatus {
     public void setName(String name) {
         this.name = name;
     }
+
+    public TaskStatus() {}
+
+    public TaskStatus(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
