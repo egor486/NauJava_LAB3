@@ -220,7 +220,7 @@ public class TaskPageController {
         return "redirect:/tasks/edit/" + taskId;
     }
 
-    // Для редактирования статуса подзадач (в разработке)
+    // Для редактирования статуса подзадач
     @PostMapping("/subtasks/{subTaskId}/toggle")
     public String toggleSubTask(@PathVariable Long subTaskId,
                                 @RequestParam("taskName") String taskName,
