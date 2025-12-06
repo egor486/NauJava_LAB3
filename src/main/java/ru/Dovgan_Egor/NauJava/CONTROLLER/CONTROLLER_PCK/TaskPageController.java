@@ -63,7 +63,13 @@ public class TaskPageController {
     }
 
     @PostMapping("/tasks/add")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@ModelAttribute("task") Task task, Model model) {
+
+        // Реализуем логику проверки дат
+        if (task.getDt_end().before(task.getDt_beg())) {
+            model.addAttribute("errorMessage", "Дата окончания не может быть раньше даты начала");
+            return "create-task";
+        }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -112,6 +118,20 @@ public class TaskPageController {
     public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task updatedTask, Model model) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Задача не найдена"));
+
+        // Реализуем логику проверки дат
+        if (updatedTask.getDt_end().before(updatedTask.getDt_beg())) {
+
+            model.addAttribute("task", task);
+            model.addAttribute("subTasks", subTaskRepository.findByTaskId(id));
+            model.addAttribute("newSubTask", new SubTask());
+            model.addAttribute("allStatuses", taskStatusRepository.findStatusEditUser());
+
+            model.addAttribute("errorMessage",
+                    "Дата окончания не может быть раньше даты начала.");
+
+            return "edit-task";
+        }
 
         // Реализуем логику проверки наличия незавершенных подзадач
         Long newStatusId = updatedTask.getStatus_id().getId();

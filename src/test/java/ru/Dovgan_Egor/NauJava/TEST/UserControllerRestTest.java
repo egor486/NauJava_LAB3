@@ -19,12 +19,6 @@ import static org.hamcrest.Matchers.*;
 @ActiveProfiles("test")
 public class UserControllerRestTest {
 
-/*    @BeforeAll
-    static void setup() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.port = 8080;
-    }*/
-
     @LocalServerPort
     int port;
 
