@@ -24,7 +24,7 @@ public class NotificationController {
     @Autowired
     private UserRepository userRepository;
 
-
+    // Получение уведомления
     @GetMapping("/notifications")
     public String viewNotifications(Model model, Principal principal) {
         String username = principal.getName();
@@ -36,7 +36,7 @@ public class NotificationController {
         return "notifications";
     }
 
-
+    // Прочтение уведомления
     @PostMapping("/notifications/read/{id}")
     public String markRead(@PathVariable Long id, HttpServletRequest request, Principal principal) {
         Notification n = notificationRepository.findById(id)
@@ -51,6 +51,7 @@ public class NotificationController {
         return "redirect:" + (referer != null ? referer : "/tasks-page");
     }
 
+    // Визуализация всех уведомлений пользователя
     @GetMapping("/notifications-page")
     public String viewAllNotifications(Model model, Principal principal) {
         String username = principal.getName();

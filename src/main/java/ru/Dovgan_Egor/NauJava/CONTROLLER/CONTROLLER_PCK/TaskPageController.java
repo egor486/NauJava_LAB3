@@ -134,11 +134,11 @@ public class TaskPageController {
         }
 
         // Реализуем логику проверки наличия незавершенных подзадач
-        Long newStatusId = updatedTask.getStatus_id().getId();
+        String newStatus = updatedTask.getStatus_id().getName();
 
-        Long doneStatus = 3L;
+        String doneStatus = "ЗАВЕРШЕНА";
 
-        if (newStatusId.equals(doneStatus)){
+        if (newStatus.equalsIgnoreCase(doneStatus)){
             long countUnfinished = subTaskRepository.countByTaskIdAndCompletedFalse(id);
 
             if (countUnfinished > 0) {
