@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.ReportRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.ENTITY_PCK.Report;
@@ -26,6 +27,7 @@ import static org.mockito.Mockito.*;
  * Покрытие методов создания и асинхронной генерации отчетов.
  */
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 class ReportServiceTest {
 
     @Mock

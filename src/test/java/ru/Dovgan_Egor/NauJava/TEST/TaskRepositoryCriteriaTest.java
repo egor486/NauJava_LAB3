@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.DAO_PCK.TaskRepositoryCustom;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class TaskRepositoryCustomTest {
 
     private final TaskRepository taskRepository;

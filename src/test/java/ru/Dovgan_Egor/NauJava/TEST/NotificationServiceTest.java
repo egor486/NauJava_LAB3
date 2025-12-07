@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.NotificationRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.TaskRepository;
 import ru.Dovgan_Egor.NauJava.MODEL.CRUD_REPOS_PCK.UserRepository;
@@ -27,6 +28,7 @@ import static org.mockito.Mockito.*;
  * Unit тесты для NotificationService с использованием Mockito.
  * Покрытие метода checkTaskDeadlines() для проверки просроченных задач.
  */
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class NotificationServiceTest {
 
