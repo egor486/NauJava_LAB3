@@ -12,7 +12,6 @@ import java.util.List;
 public interface NotificationRepository extends CrudRepository <Notification, Long> {
     List<Notification> findByIsReadFalse();
 
-    //List<Notification> findByUser_idAndIsReadFalse(User user);
     @Query("SELECT n FROM Notification n WHERE n.user_id = :user AND n.isRead = false")
     List<Notification> findByUser_idAndIsReadFalse(@Param("user") User user);
 

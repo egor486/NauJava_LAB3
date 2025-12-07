@@ -37,7 +37,7 @@ public class NotificationService {
 
             if (task.getDt_end() == null) continue;
 
-            if (task.getStatus_id().getId() == 3) {
+            if ("ЗАВЕРШЕНА".equals(task.getStatus_id().getName())) {
                 continue;
             }
 
