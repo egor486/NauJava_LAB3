@@ -41,7 +41,8 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom{
         CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
         Root<Task> taskRoot = criteriaQuery.from(Task.class);
-        Join<Task, User> userJoin = taskRoot.join("user_id", JoinType.INNER);
+        // Используем имя Java-поля "userId", а не имя колонки БД "user_id"
+        Join<Task, User> userJoin = taskRoot.join("userId", JoinType.INNER);
         Predicate loginPredicate = criteriaBuilder.equal(userJoin.get("login"), login);
 
         criteriaQuery.select(taskRoot).where(loginPredicate);
