@@ -35,7 +35,7 @@ mvn spring-boot:run
 ## Тесты
 1) Задайте переменные в application-test.properties:
 ```
-SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/TEST_NAU
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/FOR_TEST
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=postgres
 ```
