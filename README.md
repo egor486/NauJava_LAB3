@@ -1,6 +1,6 @@
 # NauJava To-Do List
 
-Коротко: Spring Boot 3 (Java 21) приложение для задач с подзадачами, статусами, уведомлениями о просрочках, HTML/REST UI и Swagger. Стек: Spring Web, Data JPA, Security (BCrypt), Thymeleaf, SpringDoc, PostgreSQL.
+Spring Boot 3 (Java 21) приложение для задач с подзадачами, статусами, уведомлениями о просрочках, HTML/REST UI и Swagger. Стек: Spring Web, Data JPA, Security (BCrypt), Thymeleaf, SpringDoc, PostgreSQL.
 
 ## Функционал
 - Регистрация/логин, роли `USER`/`ADMIN`.
