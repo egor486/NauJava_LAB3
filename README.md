@@ -1,20 +1,20 @@
 # NauJava To-Do List
-
-Spring Boot 3 (Java 21) приложение для задач с подзадачами, статусами, уведомлениями о просрочках, HTML/REST UI и Swagger. Стек: Spring Web, Data JPA, Security (BCrypt), Thymeleaf, SpringDoc, PostgreSQL.
+Управление задачами (To-Do List). Можно заводить задачи, менять статусы, устанавливать сроки выполнения, получать оповещения.
+Стек: Spring Web, Data JPA, Security (BCrypt), Thymeleaf, SpringDoc, PostgreSQL.
 
 ## Функционал
-- Регистрация/логин, роли `USER`/`ADMIN`.
+- Регистрация/логин, роли `USER`/`ADMIN`, проверка уникальности имени пользователя.
 - CRUD задач и подзадач, валидация дат, поиск/фильтр по пользователю и диапазону дат.
-- UI на Thymeleaf: `/tasks-page`, формы создания/редактирования, управление подзадачами.
-- Уведомления о просрочках каждые 30 сек.
-- Отчёты HTML: `/reports/create`, `/reports/{id}` (асинхронно).
-- REST для пользователей и задач (Spring Data REST + кастомные контроллеры), Swagger UI (только `ADMIN`).
+- UI на Thymeleaf: страница задач пользователя, формы создания/редактирования, управление подзадачами и форма просмотра уведомлений пользователя
+- Уведомления о просрочках задач каждые 30 сек.
+- Отчёты HTML: /reports/create, /reports/{id} выполняются асинхронно.
+- REST для пользователей и задач (Spring Data REST + кастомные контроллеры), Swagger UI для пользователей с ролью ADMIN
 
 ## Быстрый старт
 Требуется: JDK 21, Maven 3.9+, PostgreSQL, Chrome (для UI-тестов).
 
-1) Создайте БД `TEST_NAU` (и `FOR_TEST` для профиля test).
-2) При необходимости задайте переменные:
+1) Создайте БД TEST_NAU и FOR_TEST для профиля test.
+2) Задайте переменные в application.properties:
 ```
 SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/TEST_NAU
 SPRING_DATASOURCE_USERNAME=postgres
@@ -30,11 +30,16 @@ mvn spring-boot:run
 
 ## Основные маршруты
 - UI: `/login`, `/registration`, `/tasks-page`, `/notifications`, `/notifications-page`
-- REST: `/tasks`, `/users`, `/between?start=yyyy-MM-dd&end=yyyy-MM-dd`, `/by-user?login={login}`, `/reports/create`, `/reports/{id}`
-- Swagger UI: `/swagger-ui` (роль `ADMIN`)
+- Swagger UI: `/swagger-ui` (только для роли - `ADMIN`)
 
 ## Тесты
-- Профиль: `-Dspring.profiles.active=test` (БД `FOR_TEST`, ddl-auto=create-drop, без Security авто-конфиг).
+1) Задайте переменные в application-test.properties:
+```
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/TEST_NAU
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=postgres
+```
+2) Для запуска используйте:
 ```
 mvn -Dspring.profiles.active=test test
 ```
