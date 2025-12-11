@@ -247,7 +247,8 @@ public class TaskManagementUITest {
             driver.findElement(By.cssSelector("#addSubTaskForm button[type='submit']")).click();
 
             // Ждем обновления страницы
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".table-subtask")));
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(
+                    By.cssSelector(".table-subtask tbody tr"), 0));
 
             // Проверяем, что подзадача появилась в таблице
             List<WebElement> subtaskRows = driver.findElements(By.cssSelector(".table-subtask tbody tr"));
