@@ -131,6 +131,7 @@ public class NotificationUITest {
         
         if (!markReadButtons.isEmpty()) {
             markReadButtons.get(0).click();
+            wait.until(ExpectedConditions.stalenessOf(markReadButtons.get(0)));
 
             // Проверяем, что остались на той же странице или перешли
             wait.until(ExpectedConditions.urlMatches(".*(/tasks-page|/notifications).*"));
