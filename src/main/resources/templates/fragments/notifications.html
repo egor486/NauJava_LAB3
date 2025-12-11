@@ -1,0 +1,20 @@
+<!--<div th:fragment="notifFragment">
+    <div th:if="${notifications != null and notifications.size() > 0}" class="notif-popup">
+        <div th:each="n : ${notifications}" class="notif-item" th:classappend="${n.is_read} ? 'read' : 'unread'">
+            <p th:text="${n.message}"></p>
+            <form th:action="@{'/notifications/read/' + ${n.id}}" method="post">
+                <button type="submit" class="btn-read">Прочитано</button>
+            </form>
+        </div>
+    </div>
+</div>-->
+<div th:fragment="notifFragment">
+    <div th:if="${notifications != null and notifications.size() > 0}" class="notif-popup">
+        <div th:each="n, iterStat : ${notifications}" class="notif-item" th:classappend="${n.is_read} ? 'read' : 'unread'">
+            <p th:text="${notificationMessages[iterStat.index]}"></p>
+            <form th:action="@{'/notifications/read/' + ${n.id}}" method="post">
+                <button type="submit" class="btn-read">Прочитано</button>
+            </form>
+        </div>
+    </div>
+</div>

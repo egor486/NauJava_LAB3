@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать задачу</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/notifications.css">
+</head>
+<body>
+
+<h1 style="text-align: center;">Редактирование задачи</h1>
+
+<div th:if="${errorMessage}" class="alert alert-danger" style="text-align:center;">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<div th:replace="~{fragments/notifications :: notifFragment}"></div>
+
+<form id="editTaskForm" th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post"
+      style="width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;">
+
+    <label>Название:
+        <input type="text" th:field="*{name}" required/>
+    </label>
+
+    <label>Описание:
+        <textarea th:field="*{description}"></textarea>
+    </label>
+
+    <label>Дата начала:
+        <input type="date" th:field="*{dt_beg}" required/>
+    </label>
+
+    <label>Дата окончания:
+        <input type="date" th:field="*{dt_end}" required/>
+    </label>
+
+    <label>Статус:
+        <select th:field="*{status_id}" required>
+            <option th:each="status : ${allStatuses}"
+                    th:value="${status.id}"
+                    th:text="${status.name}"
+                    th:selected="${status.id == task.status_id.id}">
+            </option>
+        </select>
+    </label>
+
+    <button type="submit" class="btn-new">Сохранить изменения</button>
+</form>
+
+<!--<form th:action="@{'/tasks/delete/' + ${task.id}}" method="post" style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;  ">
+    <button type="submit" class="btn-new">Удалить</button>
+</form>-->
+
+<button type="button"
+        class="btn-new"
+        style="display:inline; width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;"
+        th:attr="data-id=${task.id}"
+        onclick="openTaskDeleteModal(this)">
+    Удалить
+</button>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/tasks-page">Назад к задачам</a>
+</div>
+
+<!-- ТАБЛИЦА ПОДЗАДАЧ -->
+<h2 style="text-align:center;">Подзадачи</h2>
+
+<table class="table-subtask">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Завершена</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="st : ${subTasks}">
+        <td th:text="${st.id}"></td>
+        <td th:text="${st.name}"></td>
+        <!--<td th:text="${st.is_completed ? 'Выполнена' : 'Не выполнена'}"></td>-->
+        <td>
+            <form th:action="@{'/subtasks/' + ${st.id} + '/toggle'}" method="post" class="subtask-toggle-form" th:attr="data-task-id=${task.id}">
+                <input type="checkbox"
+                       name="completed"
+                       th:checked="${st.completed}">
+                       <!--onchange="this.form.submit()">-->
+            </form>
+        </td>
+        <td>
+            <button type="button"
+                    class="delete-btn"
+                    th:attr="data-id=${st.id}"
+                    onclick="openSubTaskDeleteModal(this)">
+                ✖
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!-- ДОБАВИТЬ ПОДЗАДАЧУ -->
+<h3 style="text-align:center;">Добавить подзадачу</h3>
+<form id = "addSubTaskForm" th:action="@{'/tasks/' + ${task.id} + '/subtasks/add'}"
+      method="post"
+      style="width:300px; margin:20px auto; display:flex; flex-direction:column; gap:10px;">
+
+    <!-- Скрытые поля задачи -->
+    <input type="hidden" name="taskName" th:value="${task.name}" />
+    <input type="hidden" name="taskDescription" th:value="${task.description}" />
+    <input type="hidden" name="dt_beg" th:value="${#dates.format(task.dt_beg, 'yyyy-MM-dd')}" />
+    <input type="hidden" name="dt_end" th:value="${#dates.format(task.dt_end, 'yyyy-MM-dd')}" />
+    <input type="hidden" name="statusId" th:value="${task.status_id.id}" />
+
+   <!-- <label>Название подзадачи:
+        <input type="text" th:field="*{name}" required>
+    </label>-->
+
+    <label>Название подзадачи:
+        <input type="text" name="subTaskName" required>
+    </label>
+
+    <button type="submit" class="btn-new">Добавить</button>
+</form>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div id="subTaskDeleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удалить подзадачу?</h3>
+        <p>Это действие нельзя отменить.</p>
+
+        <form id="subTaskDeleteForm" method="post">
+            <button type="submit" class="confirm">Удалить</button>
+            <button type="button" class="cancel" onclick="closeSubTaskDeleteModal()">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<div id="taskDeleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удалить задачу?</h3>
+        <p>Это действие нельзя отменить.</p>
+
+        <form id="taskDeleteForm" method="post">
+            <button type="submit" class="confirm">Удалить</button>
+            <button type="button" class="cancel" onclick="closeTaskDeleteModal()">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script src ="/js/subtasks.js"></script>
+<script src ="/js/subTaskCheckbox.js"></script>
+<script src ="/js/taskGet.js"></script>
+<script src ="/js/taskDelete.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>

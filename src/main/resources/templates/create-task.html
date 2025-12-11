@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать задачу</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/notifications.css">
+</head>
+<body>
+
+<h1 style="text-align: center;">Создание новой задачи</h1>
+
+<div th:replace="~{fragments/notifications :: notifFragment}"></div>
+
+<div th:if="${errorMessage}" class="alert alert-danger" style="text-align:center;">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<form th:action="@{/tasks/add}" th:object="${task}" method="post"
+      style="width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;">
+
+    <label>Название:
+        <input type="text" th:field="*{name}" required/>
+    </label>
+
+    <label>Описание:
+        <textarea th:field="*{description}"></textarea>
+    </label>
+
+    <label>Дата начала:
+        <input type="date" th:field="*{dt_beg}" required/>
+    </label>
+
+    <label>Дата окончания:
+        <input type="date" th:field="*{dt_end}" required/>
+    </label>
+
+    <button type="submit" class="btn-new">Создать</button>
+</form>
+
+<div style="text-align: center;">
+    <a href="/tasks-page">Назад к задачам</a>
+</div>
+
+</body>
+</html>
