@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-
+@RestController
 public class TestController {
     @GetMapping("/test-swagger")
     public Map<String, String> test() {
