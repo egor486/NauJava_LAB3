@@ -29,7 +29,7 @@ mvn spring-boot:run
 По умолчанию: `http://localhost:8080`
 
 ## Основные маршруты
-- UI: `/login`, `/registration`, `/tasks-page`, `/notifications`, `/notifications-page`
+- UI: `/login`, `/registration`, `/tasks-page`, `/tasks/add`,`/tasks/edit`, `/notifications-page`
 - Swagger UI: `/swagger-ui` (только для роли - `ADMIN`)
 
 ## Тесты
